@@ -80,6 +80,12 @@ export function areAppConfigsEqual(
   if (getCacheBackend(config1) !== getCacheBackend(config2)) {
     return false;
   }
+  if (
+    getCacheBackend(config1) === "opfs" &&
+    (config1.opfsAccessMode ?? "async") !== (config2.opfsAccessMode ?? "async")
+  ) {
+    return false;
+  }
 
   // Check if both configurations have the same number of model records
   if (config1.model_list.length !== config2.model_list.length) {
